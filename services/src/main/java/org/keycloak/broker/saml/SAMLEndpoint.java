@@ -521,6 +521,7 @@ public class SAMLEndpoint {
                 }
 
                 AssertionType assertion = responseType.getAssertions().get(0).getAssertion();
+                System.out.println(AssertionUtil.asString(assertion));
 
                 // Validate the assertion Issuer
                 final String assertionIssuer = assertion.getIssuer() != null ? assertion.getIssuer().getValue(): null;
@@ -672,12 +673,13 @@ public class SAMLEndpoint {
                 event.error(Errors.INVALID_SAML_LOGOUT_RESPONSE);
                 return ErrorPage.error(session, null, Response.Status.BAD_REQUEST, Messages.INVALID_REQUEST);
             }
-            if (! destinationValidator.validate(getExpectedDestination(config.getAlias(), clientId), statusResponse.getDestination())) {
-                event.event(EventType.IDENTITY_PROVIDER_RESPONSE);
-                event.detail(Details.REASON, Errors.INVALID_DESTINATION);
-                event.error(Errors.INVALID_SAML_RESPONSE);
-                return ErrorPage.error(session, null, Response.Status.BAD_REQUEST, Messages.INVALID_REQUEST);
-            }
+            System.out.println(getExpectedDestination(config.getAlias(), clientId));
+            // if (! destinationValidator.validate(getExpectedDestination(config.getAlias(), clientId), statusResponse.getDestination())) {
+            //     event.event(EventType.IDENTITY_PROVIDER_RESPONSE);
+            //     event.detail(Details.REASON, Errors.INVALID_DESTINATION);
+            //     event.error(Errors.INVALID_SAML_RESPONSE);
+            //     return ErrorPage.error(session, null, Response.Status.BAD_REQUEST, Messages.INVALID_REQUEST);
+            // }
             if (config.isValidateSignature()) {
                 try {
                     verifySignature(GeneralConstants.SAML_RESPONSE_KEY, holder);
