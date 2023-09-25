@@ -131,7 +131,7 @@ public class SAMLIdentityProvider extends AbstractIdentityProvider<SAMLIdentityP
 
             String protocolBinding = JBossSAMLURIConstants.SAML_HTTP_REDIRECT_BINDING.get();
 
-            String assertionConsumerServiceUrl = request.getRedirectUri();
+            String assertionConsumerServiceUrl = "https://gis.slof.com/SSO/SAML2/POST"; // request.getRedirectUri();
 
             if (getConfig().isPostBindingResponse()) {
                 protocolBinding = JBossSAMLURIConstants.SAML_HTTP_POST_BINDING.get();
